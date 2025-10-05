@@ -4,21 +4,18 @@ datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y
 `tbl2.tsv`. En este laboratorio solo puede utilizar las funciones y 
 librerias de pandas para resolver las preguntas.
 """
+import pandas as pd
 
+nombre_archivo = "files/input/tbl1.tsv"
+
+def ordenar_y_unir(serie):
+        return ",".join(sorted(serie))
 
 def pregunta_11():
-    """
-    Construya una tabla que contenga `c0` y una lista separada por ',' de
-    los valores de la columna `c4` del archivo `tbl1.tsv`.
-
-    Rta/
-         c0       c4
-    0     0    b,f,g
-    1     1    a,c,f
-    2     2  a,c,e,f
-    3     3      a,b
-    ...
-    37   37  a,c,e,f
-    38   38      d,e
-    39   39    a,d,f
-    """
+    try:
+        df1 = pd.read_csv(nombre_archivo, sep='\t')
+    except FileNotFoundError:
+        raise FileNotFoundError(f"El archivo '{nombre_archivo}' no se encontró. Verifica la ruta.") 
+    resultado = df1.groupby('c0')['c4'].agg(ordenar_y_unir).reset_index()
+    
+    return resultado

@@ -4,6 +4,12 @@ datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y
 `tbl2.tsv`. En este laboratorio solo puede utilizar las funciones y 
 librerias de pandas para resolver las preguntas.
 """
+import pandas as pd
+
+nombre_archivo = "files/input/tbl2.tsv"
+
+def ordenar_y_unir(serie):
+        return ",".join(sorted(serie))
 
 
 def pregunta_12():
@@ -22,3 +28,13 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
+    try:
+        df2 = pd.read_csv(nombre_archivo, sep='\t')
+    except FileNotFoundError:
+        raise FileNotFoundError(f"El archivo '{nombre_archivo}' no se encontró. Verifica la ruta: {nombre_archivo}") 
+    
+    df2['c5'] = df2['c5a'] + ':' + df2['c5b'].astype(str)
+
+    resultado = df2.groupby('c0')['c5'].agg(ordenar_y_unir).reset_index()
+    
+    return resultado

@@ -4,7 +4,9 @@ datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y
 `tbl2.tsv`. En este laboratorio solo puede utilizar las funciones y 
 librerias de pandas para resolver las preguntas.
 """
+import pandas as pd
 
+nombre_archivo = "files/input/tbl0.tsv"
 
 def pregunta_09():
     """
@@ -23,3 +25,12 @@ def pregunta_09():
     39  39  E   5  1998-01-26  1998
 
     """
+    try:
+        df0 = pd.read_csv(nombre_archivo, sep='\t')
+    except FileNotFoundError:
+        raise FileNotFoundError(f"El archivo '{nombre_archivo}' no se encontró. Verifica la ruta.") 
+    
+    df0['year'] = df0['c3'].str.slice(0, 4)
+    return df0
+
+print(f"Rta/\n{pregunta_09()}")

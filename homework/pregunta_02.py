@@ -4,13 +4,17 @@ datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y
 `tbl2.tsv`. En este laboratorio solo puede utilizar las funciones y 
 librerias de pandas para resolver las preguntas.
 """
+import pandas as pd
 
+nombre_archivo = "files/input/tbl0.tsv" 
 
 def pregunta_02():
-    """
-    ¿Cuál es la cantidad de columnas en la tabla `tbl0.tsv`?
+    try:
+        df0 = pd.read_csv(nombre_archivo, sep='\t')
+    except FileNotFoundError:
+        raise FileNotFoundError(f"El archivo '{nombre_archivo}' no se encontró. Verifica la ruta.") 
+    
+    cantidad_columnas = df0.shape[1]
+    
+    return cantidad_columnas
 
-    Rta/
-    4
-
-    """
